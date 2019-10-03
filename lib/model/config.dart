@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class Config {
+  final String identifier;
   final String azureTennantId;
   String authorizationUrl;
   String tokenUrl;
@@ -13,7 +14,8 @@ class Config {
   final String resource;
   Rect screenSize;
 
-  Config(this.azureTennantId, this.clientId, this.scope, this.redirectUri,
+  Config(this.identifier, this.azureTennantId, this.clientId, this.scope,
+      this.redirectUri,
       {this.clientSecret,
       this.resource,
       this.responseType = "code",

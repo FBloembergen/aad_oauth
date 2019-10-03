@@ -17,16 +17,16 @@ class AadOAuth {
   RequestToken _requestToken;
 
   factory AadOAuth(config) {
-    if ( AadOAuth._instance == null )
+    if (AadOAuth._instance == null)
       AadOAuth._instance = new AadOAuth._internal(config);
     return _instance;
   }
 
   static AadOAuth _instance;
 
-  AadOAuth._internal(config){
+  AadOAuth._internal(config) {
     AadOAuth._config = config;
-    _authStorage = _authStorage ?? new AuthStorage();
+    _authStorage = _authStorage ?? new AuthStorage(_config);
     _requestCode = new RequestCode(_config);
     _requestToken = new RequestToken(_config);
   }
@@ -37,13 +37,11 @@ class AadOAuth {
 
   Future<void> login() async {
     await _removeOldTokenOnFirstLogin();
-    if (!Token.tokenIsValid(_token) )
-      await _performAuthorization();
+    if (!Token.tokenIsValid(_token)) await _performAuthorization();
   }
 
   Future<String> getAccessToken() async {
-    if (!Token.tokenIsValid(_token) )
-      await _performAuthorization();
+    if (!Token.tokenIsValid(_token)) await _performAuthorization();
 
     return _token.accessToken;
   }
