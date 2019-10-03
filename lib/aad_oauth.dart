@@ -16,17 +16,9 @@ class AadOAuth {
   RequestCode _requestCode;
   RequestToken _requestToken;
 
-  factory AadOAuth(config) {
-    if (AadOAuth._instance == null)
-      AadOAuth._instance = new AadOAuth._internal(config);
-    return _instance;
-  }
-
-  static AadOAuth _instance;
-
-  AadOAuth._internal(config) {
+  AadOAuth(Config config) {
     AadOAuth._config = config;
-    _authStorage = _authStorage ?? new AuthStorage(_config);
+    _authStorage = new AuthStorage(_config);
     _requestCode = new RequestCode(_config);
     _requestToken = new RequestToken(_config);
   }
